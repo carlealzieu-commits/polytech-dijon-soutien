@@ -16,30 +16,34 @@ os.system('cls')
 
 # Démmarage de la partie
 
-tentative = 0
+# Variables pouvant variés
+tentativeMax = 12
 listeCouleurs = ["R", "G", "B", "Y", "P", "W"]
+rangeCouleurs = 5
+
+tentative = 0
 listeRndCouleurs = []
 listeChoixJoueur = []
 listeVerif = []
 winGame = 0
 correct = 0
 partiel = 0
-resultTour = 0
+
 a=0
 for a in range(5):
     rndCouleurs = random.choice(listeCouleurs)
     listeRndCouleurs.append(rndCouleurs)
-    print(listeRndCouleurs)
+print(listeRndCouleurs)
 
 print("Bienvenue au Mastermind:")
 
-while (winGame == 0 and tentative <=12):
+while (winGame == 0 and tentative <= nbrTentatives):
     
     tentative = tentative + 1
 
     b=0
     c = 0
-    for b in range(5):
+    for b in range(rangeCouleurs):
         try: 
             choixJoueur = str(input(f"Couleur {b} : "))
             if choixJoueur not in listeCouleurs:
@@ -56,7 +60,7 @@ while (winGame == 0 and tentative <=12):
             correct = correct + 1
             listeVerif.append(b)
         else:
-            for c in range(5):
+            for c in range(rangeCouleurs):
                 if b != c and c not in listeVerif:
                     if listeChoixJoueur [b] == listeRndCouleurs [c]:
                         partiel = partiel + 1
@@ -66,6 +70,13 @@ while (winGame == 0 and tentative <=12):
     
     
     print(f"Correct: {correct} | Partiel: {partiel }")
+
+    if correct == rangeCouleurs:
+        print("Vous avez gagné !")
+        break
+    else:
+        print("Essayer de nouveau")
+        print(f"Encore {tentative} tentative(s)")
     correct = partiel = 0
 
 
