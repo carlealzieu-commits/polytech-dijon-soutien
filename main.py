@@ -28,56 +28,88 @@ listeVerif = []
 winGame = 0
 correct = 0
 partiel = 0
+etatJeu = 0
 
 a=0
 for a in range(5):
     rndCouleurs = random.choice(listeCouleurs)
     listeRndCouleurs.append(rndCouleurs)
-print(listeRndCouleurs)
+# print(listeRndCouleurs) // Utile au debug
 
 print("Bienvenue au Mastermind:")
 
-while (winGame == 0 and tentative <= nbrTentatives):
-    
-    tentative = tentative + 1
-
-    b=0
-    c = 0
-    for b in range(rangeCouleurs):
+def demandeJeu ():
+    play = 0
+    while 1:
         try: 
-            choixJoueur = str(input(f"Couleur {b} : "))
-            if choixJoueur not in listeCouleurs:
-                print(f"Choisir parmi cette liste de couleur: {listeCouleurs}")
-                break
+            avisJoueur = input("Voulez vous jouer ? (Y/N): ")
+            if avisJoueur != "Y" and avisJoueur != "N":
+                print(f"Choisir avec 'N' -> Non ou 'Y' -> Yes ")
         except ValueError:
-            print(f"Choisir parmi cette liste de couleur: {listeCouleurs}")
+            print(f"Choisir avec 'N' -> Non ou 'Y' -> Yes ")
 
-        listeChoixJoueur.append(choixJoueur)
-        print(listeChoixJoueur)
+        if avisJoueur == "Y":
+            play = 1
+            print("Préparer vous à jouer ...")
+            print("")
+            break
 
-        # Trouver le nbr de partiel et correct 
-        if listeChoixJoueur [b] == listeRndCouleurs [b]:
-            correct = correct + 1
-            listeVerif.append(b)
+        if avisJoueur == "N":
+            play = 0
+            print("Dommage, une prochaine fois!")
+            print("")
+            break
+        
+    return play
+
+etatJeu = demandeJeu()
+
+while(etatJeu == 1):
+    while (winGame == 0 and tentative <= tentativeMax):
+        tentative = tentative + 1
+
+        print(f"Choisir parmi cette liste de couleur: {listeCouleurs}")
+        
+        b=0
+        c = 0
+        for b in range(rangeCouleurs):
+            try: 
+                choixJoueur = str(input(f"Couleur {b} : "))
+                if choixJoueur not in listeCouleurs:
+                    print(f"Choisir parmi cette liste de couleur: {listeCouleurs}")
+                    break
+            except ValueError:
+                print(f"Choisir parmi cette liste de couleur: {listeCouleurs}")
+
+            listeChoixJoueur.append(choixJoueur)
+            print(listeChoixJoueur)
+
+            # Trouver le nbr de partiel et correct 
+            if listeChoixJoueur [b] == listeRndCouleurs [b]:
+                correct = correct + 1
+                listeVerif.append(b)
+            else:
+                for c in range(rangeCouleurs):
+                    if b != c and c not in listeVerif:
+                        if listeChoixJoueur [b] == listeRndCouleurs [c]:
+                            partiel = partiel + 1
+                            listeVerif.append(c)
+                            break
+
+        
+        
+        print(f"Correct: {correct} | Partiel: {partiel }")
+
+        if correct == rangeCouleurs:
+            print("Vous avez gagné !")
+            break
         else:
-            for c in range(rangeCouleurs):
-                if b != c and c not in listeVerif:
-                    if listeChoixJoueur [b] == listeRndCouleurs [c]:
-                        partiel = partiel + 1
-                        listeVerif.append(c)
-                        break
+            print("Essayer de nouveau")
+            print(f"Encore {tentative} tentative(s)")
+        correct = partiel = 0
 
-    
-    
-    print(f"Correct: {correct} | Partiel: {partiel }")
+        etatJeu = demandeJeu()
 
-    if correct == rangeCouleurs:
-        print("Vous avez gagné !")
-        break
-    else:
-        print("Essayer de nouveau")
-        print(f"Encore {tentative} tentative(s)")
-    correct = partiel = 0
 
 
 
