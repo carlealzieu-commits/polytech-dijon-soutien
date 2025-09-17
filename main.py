@@ -30,6 +30,8 @@ correct = 0
 partiel = 0
 play = 0
 nbrTotPartie = 0
+win = 0
+lost = 0
 
 a=0
 for a in range(5):
@@ -42,8 +44,7 @@ print("  Bienvenue au Mastermind  ")
 print("---------------------------")
 print("")
 
-def demandeJeu (play, nbrTotPartie):
-    play = 0
+def demandeJeu (play, nbrTotPartie, win, lost):
     while 1:
         try: 
             print(f"Nombre de partie réalisé - {nbrTotPartie}")
@@ -63,13 +64,17 @@ def demandeJeu (play, nbrTotPartie):
 
         if avisJoueur == "N":
             play = 0
-            nbrTotPartie = 0
+            print("")
+            print("---------------------------")
+            print(f"Pour un total de {nbrTotPartie} partie(s): victoire = {win}, defaite = {lost}")
             print("Dommage, à bientôt!")
+            print("---------------------------")
+            nbrTotPartie = 0
             break
         
-    return play, nbrTotPartie
+    return play, nbrTotPartie, win, lost
 
-play, nbrTotPartie = demandeJeu(play, nbrTotPartie)
+play, nbrTotPartie, win, lost = demandeJeu(play, nbrTotPartie, win, lost)
 os.system('cls')
 
 
@@ -117,6 +122,7 @@ while (play == 1): # Jouer plusieurs fois
         
 
         if correct == rangeCouleurs:
+            win = win + 1
             print("")
             print("Vous avez gagné !")
             print("")
@@ -128,6 +134,7 @@ while (play == 1): # Jouer plusieurs fois
                 print("")
                 tentative = tentative + 1
             else:
+                lost = lost + 1
                 print("Vous avez perdu :(")
                 print("")
                 break
@@ -137,7 +144,7 @@ while (play == 1): # Jouer plusieurs fois
 
     tentative = 0
     avisJoueur = 0
-    play, nbrTotPartie = demandeJeu(play, nbrTotPartie)
+    play, nbrTotPartie, win, lost = demandeJeu(play, nbrTotPartie, win, lost)
 
 
 
