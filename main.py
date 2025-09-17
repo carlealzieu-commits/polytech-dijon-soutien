@@ -20,6 +20,7 @@ tentative = 0
 listeCouleurs = ["R", "G", "B", "Y", "P", "W"]
 listeRndCouleurs = []
 listeChoixJoueur = []
+listeVerif = []
 winGame = 0
 correct = 0
 partiel = 0
@@ -50,16 +51,21 @@ while (winGame == 0 and tentative <=12):
         listeChoixJoueur.append(choixJoueur)
         print(listeChoixJoueur)
 
+        # Trouver le nbr de partiel et correct 
         if listeChoixJoueur [b] == listeRndCouleurs [b]:
             correct = correct + 1
-        
-        for c in range(5):
-            if listeChoixJoueur [b] == listeRndCouleurs [c]:
-                partiel = partiel + 1
-                print(f"b: {b} | c: {c}")
+            listeVerif.append(b)
+        else:
+            for c in range(5):
+                if b != c and c not in listeVerif:
+                    if listeChoixJoueur [b] == listeRndCouleurs [c]:
+                        partiel = partiel + 1
+                        listeVerif.append(c)
+                        break
+
     
-    partiel = partiel - correct   
-    print(f"Correct: {correct} | Partiel: {partiel}")
+    
+    print(f"Correct: {correct} | Partiel: {partiel }")
     correct = partiel = 0
 
 
