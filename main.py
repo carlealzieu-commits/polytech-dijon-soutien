@@ -43,6 +43,10 @@ print("---------------------------")
 print("  Bienvenue au Mastermind  ")
 print("---------------------------")
 print("")
+fichierScore = open("score.txt", "r").read()
+print(f"Nombre de victoires précédente série: {fichierScore}")
+print("")
+print("")
 
 def demandeJeu (play, nbrTotPartie, win, lost):
     while 1:
@@ -52,6 +56,7 @@ def demandeJeu (play, nbrTotPartie, win, lost):
             if avisJoueur != "Y" and avisJoueur != "N":
                 print(f"Choisir avec 'N' -> Non ou 'Y' -> Yes ")
                 print("")
+
         except ValueError:
             print(f"Choisir avec 'N' -> Non ou 'Y' -> Yes ")
             print("")
@@ -69,6 +74,8 @@ def demandeJeu (play, nbrTotPartie, win, lost):
             print(f"Pour un total de {nbrTotPartie} partie(s): victoire = {win}, defaite = {lost}")
             print("Dommage, à bientôt!")
             print("---------------------------")
+            open("score.txt", "w").write(str(nbrTotPartie))
+            print("Score enregistré !")
             nbrTotPartie = 0
             break
         
