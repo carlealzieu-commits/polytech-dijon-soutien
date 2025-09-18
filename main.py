@@ -21,6 +21,7 @@ tentativeMax = 4
 listeCouleurs = ["R", "G", "B", "Y", "P", "W"]
 rangeCouleurs = 5
 
+# Initialisation
 tentative = 0
 listeRndCouleurs = []
 listeChoixJoueur = []
@@ -74,21 +75,46 @@ def demandeJeu (play, nbrTotPartie, win, lost):
             print(f"Pour un total de {nbrTotPartie} partie(s): victoire = {win}, defaite = {lost}")
             print("Dommage, à bientôt!")
             print("---------------------------")
+            break
+    return play, nbrTotPartie, win, lost
+
+def gestionFichier (nbrTotPartie):
+    while 1:
+        try: 
+            avisJoueur = input("Voulez vous effacer vos anciennes données ? (Y/N): ")
+            if avisJoueur != "Y" and avisJoueur != "N":
+                print(f"Choisir avec 'N' -> Non ou 'Y' -> Yes ")
+                print("")
+
+        except ValueError:
+            print(f"Choisir avec 'N' -> Non ou 'Y' -> Yes ")
+            print("")
+
+        if avisJoueur == "Y":
+            open("score.txt", "w").close()
+            os.system('cls')
+            print("Vos données on était effacées")
+            break
+
+        if avisJoueur == "N":
             open("score.txt", "w").write(str(nbrTotPartie))
+            os.system('cls')
             print("Score enregistré !")
             nbrTotPartie = 0
             break
+    return nbrTotPartie
         
-    return play, nbrTotPartie, win, lost
+        
 
 play, nbrTotPartie, win, lost = demandeJeu(play, nbrTotPartie, win, lost)
-os.system('cls')
+nbrTotPartie = gestionFichier (nbrTotPartie)
+
 
 
 
 
 while (play == 1): # Jouer plusieurs fois
-    while (winGame == 0 and tentative <= (tentativeMax + 1)): # conditions d'arrêts
+    while (tentative <= (tentativeMax + 1)): # conditions d'arrêts
          
         print("")
         print(f">> Choisir parmi cette liste de couleur: {listeCouleurs}")
@@ -152,6 +178,7 @@ while (play == 1): # Jouer plusieurs fois
     tentative = 0
     avisJoueur = 0
     play, nbrTotPartie, win, lost = demandeJeu(play, nbrTotPartie, win, lost)
+    nbrTotPartie = gestionFichier (nbrTotPartie)
 
 
 
