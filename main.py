@@ -34,6 +34,7 @@ nbrTotPartie = 0
 win = 0
 lost = 0
 
+# Création de la liste aléatoire cachée
 a=0
 for a in range(5):
     rndCouleurs = random.choice(listeCouleurs)
@@ -49,7 +50,7 @@ print(f"Nombre de victoires précédente série: {fichierScore}")
 print("")
 print("")
 
-def demandeJeu (play, nbrTotPartie, win, lost):
+def demandeJeu (play, nbrTotPartie, win, lost): # Demande l'avis du joueur 
     while 1:
         try: 
             print(f"Nombre de partie réalisé - {nbrTotPartie}")
@@ -78,7 +79,7 @@ def demandeJeu (play, nbrTotPartie, win, lost):
             break
     return play, nbrTotPartie, win, lost
 
-def gestionFichier (nbrTotPartie):
+def gestionFichier (nbrTotPartie): # Enregistrer fichier ou non
     while 1:
         try: 
             avisJoueur = input("Voulez vous effacer vos anciennes données ? (Y/N): ")
@@ -114,7 +115,7 @@ nbrTotPartie = gestionFichier (nbrTotPartie)
 
 
 while (play == 1): # Jouer plusieurs fois
-    while (tentative <= (tentativeMax + 1)): # conditions d'arrêts
+    while (tentative <= (tentativeMax)): # conditions d'arrêts
          
         print("")
         print(f">> Choisir parmi cette liste de couleur: {listeCouleurs}")
@@ -179,8 +180,3 @@ while (play == 1): # Jouer plusieurs fois
     avisJoueur = 0
     play, nbrTotPartie, win, lost = demandeJeu(play, nbrTotPartie, win, lost)
     nbrTotPartie = gestionFichier (nbrTotPartie)
-
-
-
-
-
