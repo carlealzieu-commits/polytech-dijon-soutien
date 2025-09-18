@@ -54,7 +54,7 @@ def demandeJeu (play, nbrTotPartie, win, lost): # Demande l'avis du joueur
     while 1:
         try: 
             print(f"Nombre de partie réalisé - {nbrTotPartie}")
-            avisJoueur = input("Voulez vous jouer ? (Y/N): ")
+            avisJoueur = str(input("Voulez vous jouer ? (Y/N): ")).upper
             if avisJoueur != "Y" and avisJoueur != "N":
                 print(f"Choisir avec 'N' -> Non ou 'Y' -> Yes ")
                 print("")
@@ -82,7 +82,7 @@ def demandeJeu (play, nbrTotPartie, win, lost): # Demande l'avis du joueur
 def gestionFichier (nbrTotPartie): # Enregistrer fichier ou non
     while 1:
         try: 
-            avisJoueur = input("Voulez vous effacer vos anciennes données ? (Y/N): ")
+            avisJoueur = str(input("Voulez vous effacer vos anciennes données ? (Y/N): ")).upper
             if avisJoueur != "Y" and avisJoueur != "N":
                 print(f"Choisir avec 'N' -> Non ou 'Y' -> Yes ")
                 print("")
@@ -121,8 +121,6 @@ while (play == 1): # Jouer plusieurs fois
         print(f">> Choisir parmi cette liste de couleur: {listeCouleurs}")
         print("")
 
-        b=0
-        c = 0
         for b in range(rangeCouleurs):
             try: 
                 choixJoueur = str(input(f"Couleur {b} : "))
